@@ -7,19 +7,19 @@ threads='24'
 alias ucurl="curl -L -g -s --user-agent 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.15.2 Chrome/87.0.4280.144 Safari/537.36' -H 'Accept-Encoding: gzip, deflate' --compressed"
 
 get_json() {
-    ucurl "$1" | hgrep 'script +type="application/ld+json" @p"%i\n"' | jq -cM 'select(.headline) | del(."@type") | del(."@context")'
+    ucurl "$1" | hgrep 'script +type="application/ld+json" | "%i\n"' | jq -cM 'select(.headline) | del(."@type") | del(."@context")'
 }
 
 #export -f ucurl get_json
 #export PARALLEL_SHELL="$(type -p 'sh')"
 
-for i in $(ucurl 'https://www.foxnews.com/sitemap.xml' | hgrep 'loc @p"%i\n" @m"\?type=articles"' | sed 's/&amp;/\&/g')
+for i in $(ucurl 'https://www.foxnews.com/sitemap.xml' | hgrep 'loc @m"\?type=articles "@p"%i\n"' | sed 's/&amp;/\&/g')
 do
-    for j in $(ucurl "$i" | hgrep 'loc @p"%i\n"')
+    for j in $(ucurl "$i" | hgrep 'loc | "%i\n"')
     do
         #[ "$(jobs | wc -l)" -gt "$threads" ] && wait %%
         get_json "$j"
     done
-    #ucurl "$i" | hgrep 'loc @p"%i\n"' | parallel -j "$threads" 'get_json {}'
+    #ucurl "$i" | hgrep 'loc | "%i\n"' | parallel -j "$threads" 'get_json {}'
 done
 

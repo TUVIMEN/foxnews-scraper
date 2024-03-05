@@ -1,6 +1,6 @@
-# foxnews
+# foxnews-scraper
 
-A very simple shell script for downloading foxnews in json.
+A very simple shell script for scraping foxnews in json.
 
 ## Requirements
 
@@ -10,7 +10,7 @@ A very simple shell script for downloading foxnews in json.
 
 ## Installation
     
-    install -m 755 foxnews /usr/bin
+    install -m 755 foxnews-scraper /usr/bin
 
 ## Json format
 

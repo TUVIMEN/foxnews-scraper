@@ -13,7 +13,7 @@ get_json() {
 #export -f ucurl get_json
 #export PARALLEL_SHELL="$(type -p 'sh')"
 
-for i in $(ucurl 'https://www.foxnews.com/sitemap.xml' | reliq 'loc m@"?type=articles@ | "%i\n"' | sed 's/&amp;/\&/g')
+for i in $(ucurl 'https://www.foxnews.com/sitemap.xml' | reliq 'loc m@"?type=articles | "%i\n"' | sed 's/&amp;/\&/g')
 do
     for j in $(ucurl "$i" | reliq 'loc | "%i\n"')
     do

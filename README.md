@@ -4,7 +4,7 @@ A very simple shell script for scraping foxnews in json.
 
 ## Requirements
 
- - [hgrep](https://github.com/TUVIMEN/hgrep)
+ - [reliq](https://github.com/TUVIMEN/reliq)
  - [jq](https://github.com/stedolan/jq)
  - parallel (not mandatory)
 
